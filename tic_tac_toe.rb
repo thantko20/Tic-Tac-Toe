@@ -1,5 +1,7 @@
 module Result
-  def over?
+  WIN_PATTERNS = [[0,1,2], [0,3,6], [0,4,8]]
+
+  def win?
   end
 end
 
@@ -19,6 +21,7 @@ class Board
     @grid = [' ', ' ', ' ',
              ' ', ' ', ' ', 
              ' ', ' ', ' ']
+    @turn = -1
   end
 
   def display
@@ -30,17 +33,24 @@ class Board
   end
 
   def play
-    until over?
-      puts "Mark: "
-      input = gets.chomp.to_s
+    until win? # or draw?
       puts "Cell: "
       cell = gets.chomp.to_i
-      @grid[cell-1] = input
+      @grid[cell-1] = self.switch
       self.display
     end
   end
+
+  private
+
+  def switch
+    @turn += 1
+    @turn.even? ? @p1.symbol : @p2.symbol
+  end
 end
 
-game = Board.new('Marco', 'Aaron')
+p1 = Player.new('Marco', 'X')
+p2 = Player.new('Aaron', 'O')
+game = Board.new(p1, p2)
 game.display
 game.play
