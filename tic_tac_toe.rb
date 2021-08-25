@@ -1,36 +1,28 @@
-class Board
-  def initialize
-    @squares = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  end
-  
-  def display
-    @squares.each do |square|
-      print "\n" if square % 3 == 1
-      print " #{square} |"
-    end
-  end
-
-  def self.update(name, number)
-    # TODO
-  end
-
-  def self.result
-    # TODO
-  end
-end
-
 class Player
+  attr_reader :symbol
   def initialize(name, symbol)
     @name = name
     @symbol = symbol
   end
+end
 
-  def play(choice)
-    # TODO
+class Board
+  def initialize(p1, p2)
+    @p1 = p1
+    @p2 = p2
+    @grid = [' ', ' ', ' ',
+             ' ', ' ', ' ', 
+             ' ', ' ', ' ']
+  end
+
+  def display
+    puts "#{@grid[0]} | #{@grid[1]} | #{@grid[2]}"
+    puts "---------"
+    puts "#{@grid[3]} | #{@grid[4]} | #{@grid[5]}"
+    puts "---------"
+    puts "#{@grid[6]} | #{@grid[7]} | #{@grid[8]}"
   end
 end
 
-# Execute method is needed here
-board = Board.new
-board.display
-print "\n"
+game = Board.new('Marco', 'Aaron')
+game.display
