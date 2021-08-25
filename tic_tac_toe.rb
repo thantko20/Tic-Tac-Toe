@@ -21,8 +21,8 @@ module Result
     false
   end
 
-  def draw
-    true if @turn > 8
+  def draw?
+    true if @turn == 8
   end
 end
 
@@ -39,9 +39,9 @@ class Board
   def initialize(p1, p2)
     @p1 = p1
     @p2 = p2
-    @grid = [1, 2, 3,
-             4, 5, 6, 
-             7, 8, 9]
+    @grid = [' ', ' ', ' ',
+            ' ', ' ', ' ', 
+            ' ', ' ', ' ']
     @turn = -1
   end
 
@@ -54,7 +54,7 @@ class Board
   end
 
   def play
-    until win1? or win2? or draw
+    until win1? or win2? or draw?
       #binding.pry
       puts "Cell: "
       cell = gets.chomp.to_i - 1
@@ -87,7 +87,8 @@ class Board
       puts "#{@p1.name} won!"
     elsif win2?
       puts "#{@p2.name} won!"
-    else puts "Draw!" 
+    elsif draw?
+      puts 'Draw!'
     end
   end
 end
