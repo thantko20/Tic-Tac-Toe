@@ -86,14 +86,6 @@ class Board
     input.between?(0, 8) && (@grid[input] != @p1.symbol) && (@grid[input] != @p2.symbol)
   end
 
-  private
-
-  def valid_input?(input)
-    return false if !input.between?(0, 8) || (@grid[input] == @p1.symbol) || (@grid[input] == @p2.symbol)
-
-    true
-  end
-
   def player_turn
     @turn += 1
     @turn.odd? ? @p1 : @p2
