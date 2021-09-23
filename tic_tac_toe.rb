@@ -30,6 +30,10 @@ module Result
   def draw?
     true if @turn == 8
   end
+
+  def game_over?
+    win1? || win_2? || draw?
+  end
 end
 
 class Player
@@ -63,7 +67,7 @@ class Board
   end
 
   def play
-    until win1? || win2? || draw?
+    until game_over?
       puts 'Cell: '
       cell = gets.chomp.to_i - 1
       puts ''
@@ -132,4 +136,4 @@ Here's the cells positions."
   game.play
 end
 
-tic_tac_toe
+# tic_tac_toe
