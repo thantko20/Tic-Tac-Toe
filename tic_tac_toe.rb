@@ -68,6 +68,7 @@ class Board
       cell = player_input
       @grid[cell] = curr_player.symbol
       display
+
       break if game_over?(curr_player)
     end
   end
