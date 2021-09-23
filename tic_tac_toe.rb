@@ -32,7 +32,7 @@ module Result
   end
 
   def game_over?
-    win1? || win_2? || draw?
+    win1? || win2? || draw?
   end
 end
 
@@ -67,20 +67,18 @@ class Board
   end
 
   def play
-    until game_over?
+    loop do
       puts 'Cell: '
       cell = gets.chomp.to_i - 1
       puts ''
-
       unless valid_input?(cell)
         puts 'Invalid input!'
         next
       end
-
       @grid[cell] = switch
       display
+      return final_result if game_over?
     end
-    final_result
   end
 
   private
@@ -132,4 +130,4 @@ Here's the cells positions."
   game.play
 end
 
-# tic_tac_toe
+tic_tac_toe
