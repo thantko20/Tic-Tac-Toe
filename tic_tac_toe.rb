@@ -10,7 +10,7 @@ module Result
   WIN_PATTERNS = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
 
   def draw?
-    if @turn == 8
+    if @turn == 9
       puts 'Draw!'
       return true
     end
@@ -55,18 +55,18 @@ class Board
 
   def play
     loop do
+      display
       curr_player = player_turn
+      puts 'Cell: '
       cell = player_input
       @grid[cell] = curr_player.symbol
-      display
-
       break if game_over?(curr_player)
     end
+    display
   end
 
   def player_input
     loop do
-      puts 'Cell: '
       input = gets.chomp.to_i - 1
       return input if verify_input(input)
 
@@ -116,8 +116,7 @@ Here's the cells positions."
   p1 = Player.new(p1_name, 'X')
   p2 = Player.new(p2_name, 'O')
   game = Board.new(p1, p2)
-  game.display
   game.play
 end
 
-# tic_tac_toe
+#tic_tac_toe
