@@ -10,21 +10,11 @@ module Result
   WIN_PATTERNS = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
 
   def win1?
-    win = WIN_PATTERNS.each do |pattern|
-      if (@grid[pattern[0]] == @p1.symbol) && (@grid[pattern[1]] == @p1.symbol) && (@grid[pattern[2]] == @p1.symbol)
-        return true
-      end
-    end
-    false
+    check_row(@p1) ? true : false
   end
 
   def win2?
-    win = WIN_PATTERNS.each do |pattern|
-      if (@grid[pattern[0]] == @p2.symbol) && (@grid[pattern[1]] == @p2.symbol) && (@grid[pattern[2]] == @p2.symbol)
-        return true
-      end
-    end
-    false
+    check_row(@p2) ? true : false
   end
 
   def draw?
@@ -33,6 +23,15 @@ module Result
 
   def game_over?
     win1? || win2? || draw?
+  end
+
+  def check_row(player)
+    WIN_PATTERNS.each do |pattern|
+      if (@grid[pattern[0]] == player.symbol) && (@grid[pattern[1]] == player.symbol) && (@grid[pattern[2]] == player.symbol)
+        return true
+      end
+    end
+    false
   end
 end
 
@@ -54,7 +53,7 @@ class Board
     @grid = [' ', ' ', ' ',
              ' ', ' ', ' ',
              ' ', ' ', ' ']
-    @turn = -1
+    @turn = 0
   end
 
   def display
@@ -91,7 +90,7 @@ class Board
 
   def switch
     @turn += 1
-    @turn.even? ? @p1.symbol : @p2.symbol
+    @turn.odd? ? @p1.symbol : @p2.symbol
   end
 
   def final_result
