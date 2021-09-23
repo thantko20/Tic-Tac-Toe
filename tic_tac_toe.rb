@@ -18,16 +18,17 @@ module Result
   end
 
   def draw?
-    true if @turn == 8
+    puts 'Draw!' if @turn == 8
   end
 
-  def game_over?
-    win1? || win2? || draw?
+  def game_over?(player)
+    check_row(player) || draw?
   end
 
   def check_row(player)
     WIN_PATTERNS.each do |pattern|
       if (@grid[pattern[0]] == player.symbol) && (@grid[pattern[1]] == player.symbol) && (@grid[pattern[2]] == player.symbol)
+        puts "#{player.name} won!"
         return true
       end
     end
@@ -74,9 +75,9 @@ class Board
         puts 'Invalid input!'
         next
       end
-      @grid[cell] = switch
+      @grid[cell] = switch.symbol
       display
-      return final_result if game_over?
+      break if game_over?(switch)
     end
   end
 
@@ -90,17 +91,7 @@ class Board
 
   def switch
     @turn += 1
-    @turn.odd? ? @p1.symbol : @p2.symbol
-  end
-
-  def final_result
-    if win1?
-      puts "#{@p1.name} won!"
-    elsif win2?
-      puts "#{@p2.name} won!"
-    elsif draw?
-      puts 'Draw!'
-    end
+    @turn.odd? ? @p1 : @p2
   end
 end
 
