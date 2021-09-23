@@ -121,16 +121,12 @@ Here's the cells positions."
 
   puts 'Enter player 1 name: '
   p1_name = gets.chomp.to_s
-  puts 'Enter player 1 symbol: '
-  p1_symbol = gets.chomp.to_s
 
   puts 'Enter player 2 name: '
   p2_name = gets.chomp.to_s
-  puts 'Enter player 2 symbol: '
-  p2_symbol = gets.chomp.to_s
 
-  p1 = Player.new(p1_name, p1_symbol)
-  p2 = Player.new(p2_name, p2_symbol)
+  p1 = Player.new(p1_name, 'X')
+  p2 = Player.new(p2_name, 'O')
   game = Board.new(p1, p2)
   game.display
   game.play
