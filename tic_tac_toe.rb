@@ -9,16 +9,12 @@
 module Result
   WIN_PATTERNS = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
 
-  def win1?
-    check_row(@p1) ? true : false
-  end
-
-  def win2?
-    check_row(@p2) ? true : false
-  end
-
   def draw?
-    puts 'Draw!' if @turn == 8
+    if @turn == 8
+      puts 'Draw!'
+      return true
+    end
+    false
   end
 
   def game_over?(player)
@@ -68,17 +64,26 @@ class Board
 
   def play
     loop do
-      puts 'Cell: '
-      cell = gets.chomp.to_i - 1
-      puts ''
-      unless valid_input?(cell)
-        puts 'Invalid input!'
-        next
-      end
-      @grid[cell] = switch.symbol
+      curr_player = player_turn
+      cell = player_input
+      @grid[cell] = curr_player.symbol
       display
-      break if game_over?(switch)
+      break if game_over?(curr_player)
     end
+  end
+
+  def player_input
+    loop do
+      puts 'Cell: '
+      input = gets.chomp.to_i - 1
+      return input if verify_input(input)
+
+      puts "Invalid input!\n\n"
+    end
+  end
+
+  def verify_input(input)
+    input.between?(0, 8) && (@grid[input] != @p1.symbol) && (@grid[input] != @p2.symbol)
   end
 
   private
@@ -89,7 +94,7 @@ class Board
     true
   end
 
-  def switch
+  def player_turn
     @turn += 1
     @turn.odd? ? @p1 : @p2
   end
@@ -120,4 +125,4 @@ Here's the cells positions."
   game.play
 end
 
-tic_tac_toe
+ tic_tac_toe
