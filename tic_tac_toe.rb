@@ -53,15 +53,6 @@ class Board
     @turn = 0
   end
 
-  def display
-    puts "#{@grid[0]} | #{@grid[1]} | #{@grid[2]}"
-    puts '--+---+--'
-    puts "#{@grid[3]} | #{@grid[4]} | #{@grid[5]}"
-    puts '--+---+--'
-    puts "#{@grid[6]} | #{@grid[7]} | #{@grid[8]}"
-    puts ''
-  end
-
   def play
     loop do
       curr_player = player_turn
@@ -91,6 +82,17 @@ class Board
     @turn += 1
     @turn.odd? ? @p1 : @p2
   end
+
+  private
+
+  def display
+    puts "#{@grid[0]} | #{@grid[1]} | #{@grid[2]}"
+    puts '--+---+--'
+    puts "#{@grid[3]} | #{@grid[4]} | #{@grid[5]}"
+    puts '--+---+--'
+    puts "#{@grid[6]} | #{@grid[7]} | #{@grid[8]}"
+    puts ''
+  end
 end
 
 def tic_tac_toe
@@ -118,4 +120,4 @@ Here's the cells positions."
   game.play
 end
 
- tic_tac_toe
+# tic_tac_toe
